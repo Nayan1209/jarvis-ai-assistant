@@ -1,0 +1,362 @@
+:root {
+  color-scheme: dark;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  background: #081018;
+  color: #ecf7ff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.app-shell {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 28px;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(20, 184, 166, 0.22), transparent 34%),
+    radial-gradient(circle at 80% 10%, rgba(239, 68, 68, 0.16), transparent 28%),
+    linear-gradient(145deg, #081018 0%, #101923 55%, #080b10 100%);
+}
+
+.assistant-panel {
+  width: min(1080px, 100%);
+  min-height: min(880px, calc(100vh - 56px));
+  display: grid;
+  grid-template-rows: auto auto auto auto 1fr auto auto;
+  gap: 22px;
+  padding: clamp(20px, 4vw, 42px);
+  border: 1px solid rgba(236, 247, 255, 0.12);
+  border-radius: 8px;
+  background: rgba(8, 16, 24, 0.78);
+  box-shadow: 0 24px 90px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(22px);
+}
+
+.status-bar,
+.controls,
+.composer,
+.identity,
+.signal {
+  display: flex;
+  align-items: center;
+}
+
+.status-bar {
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.identity {
+  gap: 14px;
+}
+
+.identity-icon {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: #14b8a6;
+  color: #041014;
+}
+
+h1,
+p {
+  margin: 0;
+}
+
+h1 {
+  font-size: clamp(2rem, 5vw, 4.8rem);
+  line-height: 0.9;
+  letter-spacing: 0;
+}
+
+.identity p,
+.live-text,
+.message span {
+  color: #9eb5c4;
+}
+
+.signal {
+  min-width: 112px;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px solid rgba(236, 247, 255, 0.16);
+  border-radius: 8px;
+  background: rgba(236, 247, 255, 0.05);
+  color: #d9ecf7;
+}
+
+.pulse {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: #6b7f8e;
+}
+
+.pulse.active {
+  background: #2dd4bf;
+  box-shadow: 0 0 22px #2dd4bf;
+}
+
+.orb-wrap {
+  display: grid;
+  place-items: center;
+  min-height: 280px;
+}
+
+.voice-orb {
+  position: relative;
+  width: clamp(190px, 28vw, 300px);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle, rgba(236, 247, 255, 0.92) 0 8%, transparent 9%),
+    conic-gradient(from 180deg, #2dd4bf, #f97316, #38bdf8, #2dd4bf);
+  box-shadow:
+    0 0 70px rgba(45, 212, 191, 0.3),
+    inset 0 0 60px rgba(8, 16, 24, 0.72);
+  transition:
+    transform 180ms ease,
+    filter 180ms ease;
+}
+
+.voice-orb.listening {
+  animation: breathe 1.6s ease-in-out infinite;
+  filter: saturate(1.25);
+}
+
+.voice-orb span {
+  position: absolute;
+  inset: 18%;
+  border: 1px solid rgba(236, 247, 255, 0.3);
+  border-radius: 999px;
+}
+
+.voice-orb span:nth-child(2) {
+  inset: 31%;
+}
+
+.voice-orb span:nth-child(3) {
+  inset: 44%;
+  background: #061017;
+}
+
+.controls {
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.mic-button,
+.always-button,
+.icon-button,
+.composer button {
+  display: grid;
+  place-items: center;
+  border: 0;
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    opacity 160ms ease,
+    background 160ms ease;
+}
+
+.mic-button {
+  width: 84px;
+  height: 84px;
+  border-radius: 999px;
+  background: #ecf7ff;
+  color: #061017;
+  touch-action: none;
+  user-select: none;
+}
+
+.mic-button[aria-pressed="true"] {
+  background: #2dd4bf;
+  box-shadow: 0 0 34px rgba(45, 212, 191, 0.48);
+}
+
+.always-button {
+  min-width: 148px;
+  min-height: 48px;
+  grid-auto-flow: column;
+  gap: 9px;
+  padding: 0 16px;
+  border-radius: 8px;
+  background: rgba(236, 247, 255, 0.1);
+  color: #ecf7ff;
+}
+
+.always-button[aria-pressed="true"] {
+  background: #2dd4bf;
+  color: #041014;
+  box-shadow: 0 0 26px rgba(45, 212, 191, 0.36);
+}
+
+.always-button span {
+  white-space: nowrap;
+}
+
+.icon-button,
+.composer button {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  background: rgba(236, 247, 255, 0.1);
+  color: #ecf7ff;
+}
+
+button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
+}
+
+.live-text {
+  min-height: 24px;
+  text-align: center;
+}
+
+.conversation {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 280px;
+  max-height: 36vh;
+  overflow: auto;
+  padding-right: 4px;
+}
+
+.message {
+  width: min(760px, 92%);
+  padding: 14px 16px;
+  border: 1px solid rgba(236, 247, 255, 0.12);
+  border-radius: 8px;
+  background: rgba(236, 247, 255, 0.06);
+}
+
+.message.user {
+  align-self: flex-end;
+  background: rgba(45, 212, 191, 0.14);
+}
+
+.message.assistant {
+  align-self: flex-start;
+}
+
+.message span {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+}
+
+.message p {
+  line-height: 1.55;
+}
+
+.message.loading p {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.message.loading svg {
+  animation: spin 1s linear infinite;
+}
+
+.error {
+  padding: 12px 14px;
+  border: 1px solid rgba(248, 113, 113, 0.36);
+  border-radius: 8px;
+  background: rgba(127, 29, 29, 0.38);
+  color: #fecaca;
+}
+
+.composer {
+  gap: 10px;
+}
+
+.composer input {
+  width: 100%;
+  min-height: 52px;
+  border: 1px solid rgba(236, 247, 255, 0.16);
+  border-radius: 8px;
+  padding: 0 16px;
+  outline: none;
+  background: rgba(236, 247, 255, 0.08);
+  color: #ecf7ff;
+}
+
+.composer input:focus {
+  border-color: #2dd4bf;
+  box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.16);
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.045);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 720px) {
+  .app-shell {
+    padding: 0;
+  }
+
+  .assistant-panel {
+    min-height: 100vh;
+    border-radius: 0;
+    border: 0;
+  }
+
+  .status-bar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .signal {
+    min-width: 100%;
+  }
+
+  .orb-wrap {
+    min-height: 220px;
+  }
+
+  .conversation {
+    max-height: 34vh;
+  }
+}
