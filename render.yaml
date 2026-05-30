@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: jarvis-backend
+    env: docker
+    rootDir: backend
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: OPENAI_MODEL
+        value: gpt-4.1-mini
+      - key: ASSISTANT_NAME
+        value: Jarvis
+      - key: ALLOWED_ORIGINS
+        sync: false
+
+  - type: web
+    name: jarvis-frontend
+    env: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_BASE_URL
+        sync: false
