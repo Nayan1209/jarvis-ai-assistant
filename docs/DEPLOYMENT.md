@@ -87,6 +87,7 @@ Install Android Studio, then run:
 ```bash
 cd frontend
 npm install
+npm run mobile:init
 npm run mobile:sync
 npm run mobile:open
 ```
